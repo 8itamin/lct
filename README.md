@@ -1,2 +1,1 @@
-# Team Data-Intelligence
-# Leaders of digital transformation
+# Team Data-Intelligence (Project: Leaders of digital transformation)
