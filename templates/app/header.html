@@ -1,0 +1,80 @@
+{% load static %}
+
+<header>
+    <div class="container-xxl">
+      <div class="row pre-header">
+        <div class="col">
+          <div class="text-white mos"><img src="{% static 'img/small-logo.svg' %}" alt=""><b> mos.ru</b> Официальный
+            сайт Мэра Москвы</div>
+        </div>
+        <div class="col">
+          <div class="text-white mos text-end"><img src="{% static 'img/perm_identity_white_24dp.svg' %}" alt=""> Иван
+            Иванов</div>
+        </div>
+      </div>
+      <div class="row mos-menu">
+        <div class="col text-center"><a href="#" class="text-dark">Новости</a></div>
+        <div class="col text-center"><a href="#" class="text-dark">Афиша</a></div>
+        <div class="col text-center"><a href="#" class="text-dark">Услуги</a></div>
+        <div class="col text-center"><a href="#" class="text-dark">Мэр</a></div>
+        <div class="col text-center"><a href="#" class="text-dark">Власть</a></div>
+        <div class="col text-center"><a href="#" class="text-dark">Карта</a></div>
+        <div class="col text-center"><a href="#" class="text-dark">Мой район</a></div>
+        <div class="col text-center"><a href="#" class="text-dark">Инструкции</a></div>
+        <div class="col-2 text-center"><a href="#" class="text-dark">Обратная связь</a></div>
+        <div class="col text-end">
+          <p><img class="float-right" src="{% static 'img/search_black_24dp.svg' %}" alt=""></p>
+        </div>
+      </div>
+      <hr>
+      <div class="row mos-reklama">
+        <div class="col-1"><img class="rounded float-left" float-left" src="{% static 'img/rek1.jpg' %}" alt=""></div>
+        <div class="col-3 text-black-50">Название статьи в новостной ленте максимум в три строки примерно на 75 символов
+        </div>
+        <div class="col-1"><img class="rounded float-left" float-left" src="{% static 'img/rek2.jpg' %}" alt=""></div>
+        <div class="col-3 text-black-50">Название статьи в новостной ленте максимум в три строки примерно на 75 символов
+        </div>
+        <div class="col-1"><img class="rounded float-left" float-left" src="{% static 'img/rek3.jpg' %}" alt=""></div>
+        <div class="col-3 text-black-50">Название статьи в новостной ленте максимум в три строки примерно на 75 символов
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col crumps text-black-50">
+          Услуги > Библиотеки Москвы > Кабинет читателя
+        </div>
+      </div>
+      <hr>
+
+      <div class="row gradient-custom">
+        <div class="col-12 enter">
+          <h1 class="text-sm-center"><b>Кабинет читателя</b></h1>
+          <br>
+          <div class="card" style="width: 540px; height: 210px;">
+            <div class="card-body">
+
+              <h5 class="card-title"><b>Единый читательский билет</b></h5>
+              <form action="/" method="post">{% csrf_token %}
+                <label for="input" class="form-label">ID:</label>
+                <input name="id_client" type="text" class="form-control">
+                <div id="" class="form-text"></div>
+                <p class="text-secondary text-opacity-50 small"><em>Читательский билет действует во всех городских
+                    публичных библиотеках и дает возможность бесплатно брать книги на дом сроком до 30 дней
+                </em></p>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mos-button">
+        <div class="col text-center">
+          <button type="button" class="btn btn-secondary btn-lg">Мои заказы</button>
+          <button type="button" class="btn btn-primary btn-lg">Рекомендации</button>
+          <button type="button" class="btn btn-secondary btn-lg">Избранное</button>
+        </div>
+      </div>
+    </div>
+
+  </header>

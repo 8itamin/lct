@@ -6,7 +6,14 @@ def Home(request):
     """
     Template - Index page
     """
-    return render(request, 'app/index.html', context = {'username': request.user, })
+    if request.method == 'POST':
+        id_client = request.POST.get('id_client')
+        
+
+        return render(request, 'app/index.html', context = {'username': request.user, })
+    else:          
+        
+        return render(request, 'app/index.html', context = {'username': request.user, })
 
 def my_api_view(request):
     """
