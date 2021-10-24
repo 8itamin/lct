@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from .models import Books, Recomendations
 import csv
 from django.shortcuts import get_object_or_404
+from django.utils.encoding import smart_str
 
 
 def Home(request):
@@ -67,8 +68,8 @@ def my_api_view(request):
         book_5_title = ''
         book_5_author = ''
     else:
-        book_5_title = book_5.title
-        book_5_author = book_5.author
+        book_5_title = smart_str(book_5.title, encoding='utf-8', strings_only=False, errors='strict')
+        book_5_author = smart_str(book_5.author, encoding='utf-8', strings_only=False, errors='strict')
 
     if req:
         data = {
