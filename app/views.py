@@ -47,9 +47,22 @@ def my_api_view(request):
 def upload_view(request):
     do = request.GET.get('do')
     if do == 'recs':
+        print('Sterting load RECS...')
         read_recs()
 
-
+    data = {
+    'recommendations': {
+        'id': '789',
+        'title': 'Красная шапочка',
+        'author': 'Пьерро',
+        },
+    'history': {
+        'id': '123',
+        'title': 'Незнайка на луне',
+        'author': 'Носов',
+        }
+    }
+    return JsonResponse(data)
 
 
 def read_recs():
