@@ -70,10 +70,22 @@ def my_api_view(request):
         book_5_title = book_5.title
         book_5_author = book_5.author
 
-    history = History.objects.filter(id_client = id_client)
-
-
-
+    history = History.objects.filter()
+    hl = []
+    for h in history:
+        book_history = Books.objects.filter(id_book = h.id_book).first()
+        if book_history == None:
+            book_history_title = ''
+            book_history_author = ''
+        else:
+            book_history_title = book_history.title
+            book_history_author = book_history.author
+        i = {
+            'id': h.id_client, 
+            'title': book_history_title, 
+            'author': book_history_author,
+        }
+        hl.append(i)
 
     if req:
         data = {
@@ -84,7 +96,7 @@ def my_api_view(request):
                 {'id': req.req_4, 'title': book_4_title,'author': book_4_author,},
                 {'id': req.req_5, 'title': book_5_title,'author': book_5_author,}, 
                 ],               
-            'history': {'id': '123', 'title': 'Незнайка на луне', 'author': 'Носов',}
+            'history': hl,
         }
     else:
         data = ''
