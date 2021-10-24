@@ -92,31 +92,30 @@ def read_recs():
             print(i)
 
 def read_cat():
+    file = '/home/bourne/www/knigi/app/data/cat.csv'
+    file_local = 'app/data/cat.csv'
     Books.objects.all().delete()
-
-    with open('/home/bourne/www/knigi/app/data/cat.csv', encoding="utf8") as File:
+    with open(file_local, encoding="utf8") as File:
         reader = csv.reader(File, delimiter=',', quotechar=',',
                         quoting=csv.QUOTE_MINIMAL)
-        row_count = sum(1 for row in reader)
-        print(row_count)
         i = 0
         for row in reader:
             i+=1
-            title = str(row[7])
-            clear_title = title.replace('"', "")
-            id = str(row[1])
-            author = str(row[6])
 
-            Book = Books()
-            Book.id_book = id
-            Book.title = clear_title
-            Book.author = author
-            
             try:
+                title = str(row[7])
+                clear_title = title.replace('"', "")
+                id = str(row[1])
+                author = str(row[6])
+
+                Book = Books()
+                Book.id_book = id
+                Book.title = clear_title
+                Book.author = author  
+           
                 Book.save()
-                # print('id: ' + id + ' title: ' + clear_title + ' author: ' + author)
-                
+                print(i)               
             except:
                 continue
-            print(row_count-i)
+
             
