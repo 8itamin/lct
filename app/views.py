@@ -70,9 +70,10 @@ def upload_view(request):
 
 def read_recs():
     file = '/home/bourne/www/knigi/app/data/recs.csv'
+    file_local = 'app/data/recs.csv'
     Recomendations.objects.all().delete()
     i=0
-    with open('app/data/recs.csv') as File:
+    with open(file) as File:
         reader = csv.reader(File, delimiter=',', quotechar=',',
                         quoting=csv.QUOTE_MINIMAL)        
         for row in reader:        
