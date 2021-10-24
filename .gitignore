@@ -32,3 +32,5 @@ pycache/
 *.pyc
 
 db.sqlite3
+
+*.csv

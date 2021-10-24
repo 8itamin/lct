@@ -8,6 +8,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.Home, name='home'), 
     path('knigi-api/', views.my_api_view),
+    path('upload/', views.upload_view),
+
     
 ]
 
