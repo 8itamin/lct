@@ -70,7 +70,7 @@ def my_api_view(request):
         book_5_title = book_5.title
         book_5_author = book_5.author
 
-    history = History.objects.filter()
+    history = History.objects.filter(id_client = id_client).order_by('finish_read')
     hl = []
     for h in history:
         book_history = Books.objects.filter(id_book = h.id_book).first()
