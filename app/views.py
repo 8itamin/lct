@@ -68,6 +68,7 @@ def upload_view(request):
 
 
 def read_recs():
+    Recomendations.objects.all().delete()
     with open('/home/bourne/www/knigi/app/data/recs.csv') as File:
         reader = csv.reader(File, delimiter=',', quotechar=',',
                         quoting=csv.QUOTE_MINIMAL)
@@ -89,6 +90,7 @@ def read_recs():
                 continue
 
 def read_cat():
+    Books.objects.all().delete()
 
     with open('/home/bourne/www/knigi/app/data/cat.csv', encoding="utf8") as File:
         reader = csv.reader(File, delimiter=',', quotechar=',',
@@ -111,7 +113,8 @@ def read_cat():
             try:
                 Book.save()
                 # print('id: ' + id + ' title: ' + clear_title + ' author: ' + author)
-                print(row_count-i)
+                
             except:
                 continue
+            print(row_count-i)
             
