@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from .models import Books, Recomendations
 import csv
+from django.shortcuts import get_object_or_404
 
 
 def Home(request):
@@ -27,21 +28,61 @@ def my_api_view(request):
     """
 
     id_client = request.GET.get('id_client')
-    req = Recomendations.objects.filter(id_client = id_client).first
+    req = get_object_or_404(Recomendations, id_client = id_client)
 
+    book_1 = Books.objects.filter(id_book = req.req_1).first()
+    if book_1 == None:
+        book_1_title = ''
+        book_1_author = ''
+    else:
+        book_1_title = book_1.title
+        book_1_author = book_1.author
 
-    data = {
-        'recommendations': {
-            'id': '789',
-            'title': 'Красная шапочка',
-            'author': 'Пьерро',
-            },
-        'history': {
-            'id': '123',
-            'title': 'Незнайка на луне',
-            'author': 'Носов',
-            }
-    }
+    book_2 = Books.objects.filter(id_book = req.req_2).first()
+    if book_2 == None:
+        book_2_title = ''
+        book_2_author = ''
+    else:
+        book_2_title = book_2.title
+        book_2_author = book_2.author
+
+    book_3 = Books.objects.filter(id_book = req.req_3).first()
+    if book_3 == None:
+        book_3_title = ''
+        book_3_author = ''
+    else:
+        book_3_title = book_3.title
+        book_3_author = book_3.author
+
+    book_4 = Books.objects.filter(id_book = req.req_4).first()
+    if book_4 == None:
+        book_4_title = ''
+        book_4_author = ''
+    else:
+        book_4_title = book_4.title
+        book_4_author = book_4.author
+
+    book_5 = Books.objects.filter(id_book = req.req_5).first()
+    if book_5 == None:
+        book_5_title = ''
+        book_5_author = ''
+    else:
+        book_5_title = book_5.title
+        book_5_author = book_5.author
+
+    if req:
+        data = {
+            'recommendations': [
+                {'id': req.req_1, 'title': book_1_title,'author': book_1_author,},
+                {'id': req.req_2, 'title': book_2_title,'author': book_2_author,},
+                {'id': req.req_3, 'title': book_3_title,'author': book_3_author,},
+                {'id': req.req_4, 'title': book_4_title,'author': book_4_author,},
+                {'id': req.req_5, 'title': book_5_title,'author': book_5_author,}, 
+                ],               
+            'history': {'id': '123', 'title': 'Незнайка на луне', 'author': 'Носов',}
+        }
+    else:
+        data = ''
     return JsonResponse(data)
 
 def upload_view(request):
