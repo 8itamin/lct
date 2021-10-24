@@ -49,8 +49,11 @@ def upload_view(request):
     if do == 'recs':
         read_recs()
 
+
+
+
 def read_recs():
-    with open('app/data/recs.csv') as File:
+    with open('/home/bourne/www/knigi/app/data/recs.csv') as File:
         reader = csv.reader(File, delimiter=',', quotechar=',',
                         quoting=csv.QUOTE_MINIMAL)
         for row in reader:
@@ -69,7 +72,7 @@ def read_recs():
 
 def read_cat():
 
-    with open('app/data/cat.csv', encoding="utf8") as File:
+    with open('/home/bourne/www/knigi/app/data/cat.csv', encoding="utf8") as File:
         reader = csv.reader(File, delimiter=',', quotechar=',',
                         quoting=csv.QUOTE_MINIMAL)
         for row in reader:
