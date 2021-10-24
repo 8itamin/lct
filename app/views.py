@@ -95,7 +95,7 @@ def read_cat():
     file = '/home/bourne/www/knigi/app/data/cat.csv'
     file_local = 'app/data/cat.csv'
     Books.objects.all().delete()
-    with open(file_local, encoding="utf8") as File:
+    with open(file, encoding="utf8") as File:
         reader = csv.reader(File, delimiter=',', quotechar=',',
                         quoting=csv.QUOTE_MINIMAL)
         i = 0
