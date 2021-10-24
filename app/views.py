@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from .models import Books, History, Recomendations
 import csv
 from django.shortcuts import get_object_or_404
+from threading import Thread
+import datetime
 
 
 def Home(request):
@@ -115,22 +117,19 @@ def upload_view(request):
         print('Starting load History...')
         read_history()
 
-    data = {
-    'recommendations': {
-        'id': '789',
-        'title': 'Красная шапочка',
-        'author': 'Пьерро',
-        },
-    'history': {
-        'id': '123',
-        'title': 'Незнайка на луне',
-        'author': 'Носов',
-        }
-    }
+    data = {}
 
     return JsonResponse(data)
 
+def start_new_thread(function):
+    def decorator(*args, **kwargs):
+        t = Thread(target = function, args=args, kwargs=kwargs)
+        t.daemon = True
+        t.start()
+    return decorator
 
+
+@start_new_thread
 def read_recs():
     file = '/home/bourne/www/knigi/app/data/recs.csv'
     file_local = 'app/data/recs.csv'
@@ -154,10 +153,12 @@ def read_recs():
                 continue 
             print(i)
 
+
+@start_new_thread
 def read_cat():
     file = '/home/bourne/www/knigi/app/data/cat.csv'
     file_local = 'app/data/cat.csv'
-    Books.objects.all().delete()
+    # Books.objects.all().delete()
     with open(file, encoding="utf8") as File:
         reader = csv.reader(File, delimiter=',', quotechar=',',
                         quoting=csv.QUOTE_MINIMAL)
@@ -182,28 +183,35 @@ def read_cat():
                 continue
 
 def read_history():
+
     file = '/home/bourne/www/knigi/app/data/circulaton.csv'
     file_local = 'app/data/circulaton.csv'
-    History.objects.all().delete()
-    with open(file, encoding="utf8") as File:
-        reader = csv.reader(File, delimiter=',', quotechar=',',
-                        quoting=csv.QUOTE_MINIMAL)
-        # row_count = sum(1 for row in reader)
-        # print(row_count)
-        i = 0
-        for row in reader:
-            i+=1
+    # History.objects.all().delete()
+    r_h(file)
 
+
+@start_new_thread
+def r_h (file):    
+    with open(file, encoding="utf8") as File:
+        i = 0
+        for row in File:
+            data = row.split(',')
+            i+=1
+            if i==1:
+                continue
+             
             try:
                 Book = History()
-                Book.id_client = row[5]
-                Book.id_book = row[2]
-                Book.start_read = row[3]
-                Book.finish_read = row[4] 
-           
+                Book.id_client = data[5]
+                Book.id_book = data[2]
+
+                Book.start_read = datetime.datetime.strptime(data[3], '%d.%m.%Y').date()
+                Book.finish_read = datetime.datetime.strptime(data[4], '%d.%m.%Y').date()         
+                
                 Book.save()
-                print(i)               
+                print(i)                               
             except:
                 continue
+            
 
             
