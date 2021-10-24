@@ -47,9 +47,10 @@ def my_api_view(request):
 def upload_view(request):
     do = request.GET.get('do')
     if do == 'recs':
-        print('Sterting load RECS...')
+        print('Starting load RECS...')
         read_recs()
     elif do == 'cat':
+        print('Starting load CAT...')
         read_cat()
 
     data = {
@@ -68,26 +69,26 @@ def upload_view(request):
 
 
 def read_recs():
+    file = '/home/bourne/www/knigi/app/data/recs.csv'
     Recomendations.objects.all().delete()
-    with open('/home/bourne/www/knigi/app/data/recs.csv') as File:
+    i=0
+    with open('app/data/recs.csv') as File:
         reader = csv.reader(File, delimiter=',', quotechar=',',
-                        quoting=csv.QUOTE_MINIMAL)
-        i = 0
-        row_count = sum(1 for row in reader)
-        print(row_count)
-        for row in reader:
-            i += 1
+                        quoting=csv.QUOTE_MINIMAL)        
+        for row in reader:        
+            i+=1    
             Rec = Recomendations()
-            Rec.id_client = row[0]
-            Rec.req_1 = row[1][:row[1].find('.')]
-            Rec.req_2 = row[2][:row[2].find('.')]
-            Rec.req_3 = row[3][:row[3].find('.')]
-            Rec.req_4 = row[4][:row[4].find('.')]
-            Rec.req_5 = row[5][:row[5].find('.')]
             try:
-                Rec.save()
+                Rec.id_client = row[0]
+                Rec.req_1 = row[1][:row[1].find('.')]
+                Rec.req_2 = row[2][:row[2].find('.')]
+                Rec.req_3 = row[3][:row[3].find('.')]
+                Rec.req_4 = row[4][:row[4].find('.')]
+                Rec.req_5 = row[5][:row[5].find('.')]
+                Rec.save()               
             except:
-                continue
+                continue 
+            print(i)
 
 def read_cat():
     Books.objects.all().delete()

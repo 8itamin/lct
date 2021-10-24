@@ -1,6 +1,7 @@
 from os import name
 from django.db import models
-  
+
+
 
 class Recomendations(models.Model):
     """ Модель рекомендаций
@@ -19,8 +20,7 @@ class Recomendations(models.Model):
     req_3 = models.CharField(max_length=50)
     req_4 = models.CharField(max_length=50)
     req_5 = models.CharField(max_length=50)
-    
-    
+        
     def __str__(self):
         return self.id_client
     
