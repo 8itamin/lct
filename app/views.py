@@ -49,6 +49,8 @@ def upload_view(request):
     if do == 'recs':
         print('Sterting load RECS...')
         read_recs()
+    elif do == 'cat':
+        read_cat()
 
     data = {
     'recommendations': {
@@ -69,7 +71,11 @@ def read_recs():
     with open('/home/bourne/www/knigi/app/data/recs.csv') as File:
         reader = csv.reader(File, delimiter=',', quotechar=',',
                         quoting=csv.QUOTE_MINIMAL)
+        i = 0
+        row_count = sum(1 for row in reader)
+        print(row_count)
         for row in reader:
+            i += 1
             Rec = Recomendations()
             Rec.id_client = row[0]
             Rec.req_1 = row[1][:row[1].find('.')]
@@ -77,7 +83,6 @@ def read_recs():
             Rec.req_3 = row[3][:row[3].find('.')]
             Rec.req_4 = row[4][:row[4].find('.')]
             Rec.req_5 = row[5][:row[5].find('.')]
-            print(Rec)
             try:
                 Rec.save()
             except:
@@ -88,20 +93,23 @@ def read_cat():
     with open('/home/bourne/www/knigi/app/data/cat.csv', encoding="utf8") as File:
         reader = csv.reader(File, delimiter=',', quotechar=',',
                         quoting=csv.QUOTE_MINIMAL)
-        for row in reader:
-            title = str(row[7])
-            clear_title = title.replace('"', "")
-            id = str(row[1])
-            author = str(row[6])
+        row_count = sum(1 for row in reader)
+        print(row_count)
+        
+        # for row in reader:
+        #     title = str(row[7])
+        #     clear_title = title.replace('"', "")
+        #     id = str(row[1])
+        #     author = str(row[6])
 
-            Book = Books()
-            Book.id_book = id
-            Book.title = clear_title
-            Book.author = author
+        #     Book = Books()
+        #     Book.id_book = id
+        #     Book.title = clear_title
+        #     Book.author = author
             
-            try:
-                Book.save()
-                print('id: ' + id + ' title: ' + clear_title + ' author: ' + author)
-            except:
-                continue
+        #     try:
+        #         Book.save()
+        #         print('id: ' + id + ' title: ' + clear_title + ' author: ' + author)
+        #     except:
+        #         continue
             
