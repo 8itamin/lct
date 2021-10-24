@@ -95,21 +95,23 @@ def read_cat():
                         quoting=csv.QUOTE_MINIMAL)
         row_count = sum(1 for row in reader)
         print(row_count)
-        
-        # for row in reader:
-        #     title = str(row[7])
-        #     clear_title = title.replace('"', "")
-        #     id = str(row[1])
-        #     author = str(row[6])
+        i = 0
+        for row in reader:
+            i+=1
+            title = str(row[7])
+            clear_title = title.replace('"', "")
+            id = str(row[1])
+            author = str(row[6])
 
-        #     Book = Books()
-        #     Book.id_book = id
-        #     Book.title = clear_title
-        #     Book.author = author
+            Book = Books()
+            Book.id_book = id
+            Book.title = clear_title
+            Book.author = author
             
-        #     try:
-        #         Book.save()
-        #         print('id: ' + id + ' title: ' + clear_title + ' author: ' + author)
-        #     except:
-        #         continue
+            try:
+                Book.save()
+                # print('id: ' + id + ' title: ' + clear_title + ' author: ' + author)
+                print(row_count-i)
+            except:
+                continue
             
