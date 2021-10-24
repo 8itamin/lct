@@ -3,7 +3,6 @@ from django.http import JsonResponse
 from .models import Books, Recomendations
 import csv
 from django.shortcuts import get_object_or_404
-from django.utils import simplejson
 from django.http import HttpResponse
 
 def Home(request):
@@ -85,7 +84,7 @@ def my_api_view(request):
     else:
         data = ''
         
-    return HttpResponse(simplejson.dumps(data), mimetype='application/json')
+    return HttpResponse(data, content_type='application/json')
 
 def upload_view(request):
     do = request.GET.get('do')
