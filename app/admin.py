@@ -11,3 +11,8 @@ class Books(admin.ModelAdmin):
 class Books(admin.ModelAdmin):
     list_display = ['id_client','req_1', 'req_2', 'req_3', 'req_4', 'req_5']
     search_fields = ['id_client']
+
+@admin.register(History)
+class History(admin.ModelAdmin):
+    list_display = ['id_client','id_book', 'start_read', 'finish_read']
+    search_fields = ['id_client']

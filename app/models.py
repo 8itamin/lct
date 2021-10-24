@@ -28,3 +28,9 @@ class Books(models.Model):
     id_book = models.CharField(max_length=50)
     title = models.CharField(max_length=500)
     author = models.CharField(max_length=500)
+
+class History(models.Model):
+    id_client = models.CharField(max_length=50)
+    id_book = models.CharField(max_length=50)
+    start_read = models.DateField()
+    finish_read = models.DateField()

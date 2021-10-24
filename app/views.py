@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import Books, Recomendations
+from .models import Books, History, Recomendations
 import csv
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
+
 
 def Home(request):
     """
@@ -70,6 +70,11 @@ def my_api_view(request):
         book_5_title = book_5.title
         book_5_author = book_5.author
 
+    history = History.objects.filter(id_client = id_client)
+
+
+
+
     if req:
         data = {
             'recommendations': [
@@ -83,8 +88,8 @@ def my_api_view(request):
         }
     else:
         data = ''
-        
-    return HttpResponse(data, content_type='application/json')
+
+    return JsonResponse(data)
 
 def upload_view(request):
     do = request.GET.get('do')
@@ -94,6 +99,9 @@ def upload_view(request):
     elif do == 'cat':
         print('Starting load CAT...')
         read_cat()
+    elif do == 'history':
+        print('Starting load History...')
+        read_history()
 
     data = {
     'recommendations': {
@@ -107,6 +115,7 @@ def upload_view(request):
         'author': 'Носов',
         }
     }
+
     return JsonResponse(data)
 
 
@@ -154,6 +163,31 @@ def read_cat():
                 Book.id_book = id
                 Book.title = clear_title
                 Book.author = author  
+           
+                Book.save()
+                print(i)               
+            except:
+                continue
+
+def read_history():
+    file = '/home/bourne/www/knigi/app/data/circulaton.csv'
+    file_local = 'app/data/circulaton.csv'
+    History.objects.all().delete()
+    with open(file, encoding="utf8") as File:
+        reader = csv.reader(File, delimiter=',', quotechar=',',
+                        quoting=csv.QUOTE_MINIMAL)
+        # row_count = sum(1 for row in reader)
+        # print(row_count)
+        i = 0
+        for row in reader:
+            i+=1
+
+            try:
+                Book = History()
+                Book.id_client = row[5]
+                Book.id_book = row[2]
+                Book.start_read = row[3]
+                Book.finish_read = row[4] 
            
                 Book.save()
                 print(i)               
