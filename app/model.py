@@ -1,3 +1,7 @@
+import pandas as pd 
+import numpy as np
+
+
 class BooksRecomender():
     def __init__(self, days=60, item_columns='smart_collapse_field', user_columns='readerID', date='startDate'):
         self.days = days
@@ -126,12 +130,12 @@ class BooksRecomender():
         recs['book_id_4'] = pd.merge(recs['book_id_4'], key, how='left', left_on="book_id_4", right_on="smart_collapse_field").drop(columns = ['book_id_4', 'smart_collapse_field'])
         recs['book_id_5'] = pd.merge(recs['book_id_5'], key, how='left', left_on="book_id_5", right_on="smart_collapse_field").drop(columns = ['book_id_5', 'smart_collapse_field'])
         
-        recs.to_csv('recs.csv',index=False)
+        recs.to_csv('/home/bourne/www/knigi/app/data/recs.csv',index=False)
 
 
-cat = pd.read_csv('C:/Users/coolz/cat.csv')
-circulaton = pd.read_csv('C:/Users/coolz/circulaton.csv')
-readers = pd.read_csv('C:/Users/coolz/readers.csv',index_col=[0])
+cat = pd.read_csv('/home/bourne/www/knigi/app/data/cat.csv')
+circulaton = pd.read_csv('/home/bourne/www/knigi/app/data/circulaton.csv')
+readers = pd.read_csv('/home/bourne/www/knigi/app/data/readers.csv',index_col=[0])
 
 recs = BooksRecomender()
 recs.fit(cat, circulaton, readers)

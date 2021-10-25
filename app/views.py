@@ -13,12 +13,60 @@ def Home(request):
     """
     if request.method == 'POST':
         id_client = request.POST.get('id_client')
-        req = Recomendations.objects.filter(id_client = id_client).first
+        req = Recomendations.objects.filter(id_client = id_client).first()
+        if req != None:
+            arr = []
+            arr.append(get_book(req.req_1))
+            arr.append(get_book(req.req_2))
+            arr.append(get_book(req.req_3))
+            arr.append(get_book(req.req_4))
+            arr.append(get_book(req.req_5))
+            arr.append(get_book(req.req_4))
+
+            top = [] # top circulation
+            for i in range(6):
+                top.append(get_random_book())
+                                       
+            month = [] # top circulation in month
+            for i in range(6):
+                month.append(get_random_book())
+
+            context = {
+                'username': request.user,
+                'books': arr,
+                'top': top,
+                'month': month,
+            }
         
-        return render(request, 'app/index.html', context = {'username': request.user, })
+        return render(request, 'app/index.html', context = context)
     else:          
         
         return render(request, 'app/index.html', context = {'username': request.user, })
+
+def get_book (id):
+    book = Books.objects.filter(id_book = id).first()
+    irr=[]
+    if book != None:
+        irr = {
+            'title': book.title,
+            'author': book.author
+        }
+    else:
+        book = Books.objects.order_by('?')[0]
+        irr = {
+            'title': book.title,
+            'author': book.author
+        }
+    return irr
+
+def get_random_book ():
+    irr=[]
+    book = Books.objects.order_by('?')[0]
+    irr = {
+        'title': book.title,
+        'author': book.author
+    }
+    return irr
 
 def my_api_view(request):
     """
