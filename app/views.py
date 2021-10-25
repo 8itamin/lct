@@ -40,8 +40,25 @@ def Home(request):
         
         return render(request, 'app/index.html', context = context)
     else:          
-        
-        return render(request, 'app/index.html', context = {'username': request.user, })
+        arr = [] # top circulation
+        for i in range(6):
+            arr.append(get_random_book())
+
+        top = [] # top circulation
+        for i in range(6):
+            top.append(get_random_book())
+                                    
+        month = [] # top circulation in month
+        for i in range(6):
+            month.append(get_random_book())
+        context = {
+                'username': request.user,
+                'books': arr,
+                'top': top,
+                'month': month,
+            }
+    
+        return render(request, 'app/index.html', context = context)
 
 def get_book (id):
     book = Books.objects.filter(id_book = id).first()

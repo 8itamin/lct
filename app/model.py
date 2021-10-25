@@ -1,5 +1,6 @@
 import pandas as pd 
 import numpy as np
+import datetime
 
 
 class BooksRecomender():
@@ -73,7 +74,7 @@ class BooksRecomender():
             return [item_inv_mapping[item] for item, _ in recs]
         return _recs_mapper
     
-    def fit(self, cat, circulaton, readers, n_iter=4):
+    def fit(self, cat, circulaton, readers, n_iter=2):
         cat = self.cat_proc(cat)
         circulaton = self.circulaton_proc(circulaton)
         readers = self.readers_proc(readers)
