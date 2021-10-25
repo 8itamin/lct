@@ -148,7 +148,7 @@ def my_api_view(request):
             book_history_title = book_history.title
             book_history_author = book_history.author
         i = {
-            'id': h.id_client, 
+            'id': h.id_book, 
             'title': book_history_title, 
             'author': book_history_author,
         }
