@@ -5,6 +5,7 @@ import csv
 from django.shortcuts import get_object_or_404
 from threading import Thread
 import datetime
+from random import randint
 
 
 def Home(request):
@@ -69,7 +70,9 @@ def get_book (id):
             'author': book.author
         }
     else:
-        book = Books.objects.order_by('?').first()
+        count = Books.objects.count()
+        book = Books.objects.all()[randint(0, count - 1)] #single random object
+        # book = Books.objects.order_by('?').first()
         irr = {
             'title': book.title,
             'author': book.author
@@ -77,8 +80,10 @@ def get_book (id):
     return irr
 
 def get_random_book ():
+    count = Books.objects.count()
+    book = Books.objects.all()[randint(0, count - 1)] #single random object
     irr=[]
-    book = Books.objects.order_by('?').first()
+    # book = Books.objects.order_by('?').first()
     irr = {
         'title': book.title,
         'author': book.author
