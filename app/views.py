@@ -14,7 +14,7 @@ def Home(request):
     """
     if request.method == 'POST':
         id_client = request.POST.get('id_client')
-        req = Recomendations.objects.filter(id_client = id_client).first()
+        req = Recomendations.objects.get(id_client = id_client)
         if req != None:
             arr = []
             arr.append(get_book(req.req_1))
@@ -62,7 +62,7 @@ def Home(request):
         return render(request, 'app/index.html', context = context)
 
 def get_book (id):
-    book = Books.objects.filter(id_book = id).first()
+    book = Books.objects.get(id_book = id)
     irr=[]
     if book != None:
         irr = {
