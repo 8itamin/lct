@@ -69,7 +69,7 @@ def get_book (id):
             'author': book.author
         }
     else:
-        book = Books.objects.order_by('?')[0]
+        book = Books.objects.order_by('?').first()
         irr = {
             'title': book.title,
             'author': book.author
@@ -78,7 +78,7 @@ def get_book (id):
 
 def get_random_book ():
     irr=[]
-    book = Books.objects.order_by('?')[0]
+    book = Books.objects.order_by('?').first()
     irr = {
         'title': book.title,
         'author': book.author
